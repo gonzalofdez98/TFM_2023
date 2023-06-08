@@ -42,12 +42,21 @@ function checkCuatri(mes, dia){
 	
 	return cuatri;
 }
-/*TODO: Funcion que checkea el formato de los datos del JSON. 
-function checkFormat(){
+
+//Funcion que checkea el formato de los datos del JSON recibido. 
+function checkBody(body){
+	if(!body.hasOwnProperty("idtarjeta")){
+		return false;
+	}
+	if(!body.hasOwnProperty("sala")){
+		return false;
+	}
+	if(!body.hasOwnProperty("cargo")){
+		return false;
+	}
+	return true;
+
 }
-TODO: Devolver codigo para que se vuelva a intentar la inserción en caso correcto de comando,
-pero incorrecto de insercion
-*/
 
 //Funcion que gestiona los retrasos y adelantos de entrada al aula
 function checkHora(hora, min){
@@ -97,6 +106,14 @@ app.post("/GestionAula", (req, res) => {
 	console.log(req.body);
 	var body = req.body;
 	var aula,idUsuario, cargo;	
+	
+	if(checkBody(body) == false){
+		console.log("Estructura de los datos recibidos incorrecta");
+		res.status(400).send("Estructura de los datos recibidos incorrecta");
+		res.end();
+		return;
+	}
+	
 	aula = body["sala"];
 	idUsuario = body["idtarjeta"];
 	cargo = body["cargo"];
