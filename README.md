@@ -18,5 +18,5 @@ se mantendrá activo hasta que se pare su ejecución de manera intencionada medi
 algún error fatal en el servidor.
 
 La carpeta "ReporteIncidencias" incluye el código en Python del script utilizado para generar un reporte de las incidencias ocurridas en el seguimiento de la asistencia docente del profesorado. Para poder ejecutarlo, es necesario instalar la versión 3 de Python. Existen dos modos para la generación de reportes:
-* Reporte de las incidencias de un único día. Ejecutar la siguiente sentencia por consola de comandos: " python3 checkAsistencia.py dia dia" , donde el formato del día es "dia/mes/año".
-* Reporte de las incidencias de una semana completa. Ejecutar la siguiente sentencia por consola de comandos: " python3 checkAsistencia.py semana diaInicio" , donde el formato del día es "dia/mes/año" e indica el lunes que inicia dicha semana.
+* Reporte de las incidencias de un único día. Ejecutar la siguiente sentencia por consola de comandos: " python3 checkAsistencia.py dia dia" , donde el formato del día es "año-mes-dia".
+* Reporte de las incidencias de una semana completa. Ejecutar la siguiente sentencia por consola de comandos: " python3 checkAsistencia.py semana diaInicio" , donde el formato del día es "año-mes-dia" e indica el lunes que inicia dicha semana.
