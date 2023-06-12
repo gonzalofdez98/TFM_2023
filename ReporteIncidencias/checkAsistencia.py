@@ -9,7 +9,7 @@ import sys
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="Elgoncho8!FM",
+  password="",
 )
 
 #Funcion para obtener el cuatrimestre dado un dia y un mes

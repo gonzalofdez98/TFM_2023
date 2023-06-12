@@ -20,7 +20,7 @@ https.createServer({
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Elgoncho8!FM"
+  password: ""
 });
 
 
