@@ -57,7 +57,7 @@ def asistenciaProfesores(fecha, semana):
         print(lesson)
         parameters = (lesson[0], lesson[2], fecha)
         #Query a la tabla de asistencia para comprobar que el profesor ha asistido en el horario
-        query = "SELECT * FROM fdi_ucm.asistencia WHERE aula = %s AND idUsuario = %s AND fecha = %s"
+        query = "SELECT * FROM fdi_ucm.asistencia_profesores WHERE aula = %s AND idProfesor = %s AND fecha = %s"
         mycursor.execute(query, parameters)
         myresult = mycursor.fetchall()
         #Si hay algun resultado es posible que haya asistido, pero hay que comprobar la hora
@@ -75,7 +75,7 @@ def asistenciaProfesores(fecha, semana):
                     print("Con retraso")
                     parameters = []
                     parameters.append(lesson[2])
-                    query = "SELECT nombre FROM fdi_ucm.usuarios WHERE idUsuario = %s"
+                    query = "SELECT nombre FROM fdi_ucm.profesores WHERE idProfesor = %s"
                     mycursor.execute(query, parameters)
                     myresult = mycursor.fetchall()
                     rellenarIncidencia(incidencia, lesson[2], myresult[0][0], lesson[0], lesson[3], lesson[4], "Retraso de " + str(minutes) + " minutos")
@@ -151,14 +151,14 @@ def profesorNoAsiste(incidencia, lesson, fecha):
     mycursor = mydb.cursor()
     parameters = []
     parameters.append(lesson[2])
-    query = "SELECT nombre FROM fdi_ucm.usuarios WHERE idUsuario = %s"
+    query = "SELECT nombre FROM fdi_ucm.profesores WHERE idProfesor = %s"
     mycursor.execute(query, parameters)
     myresult = mycursor.fetchall()
     rellenarIncidencia(incidencia, lesson[2], myresult[0][0], lesson[0], lesson[3], lesson[4], "No asiste")
     #Ahora se comprueba si ha ido un profesor suplente
     parameters = (lesson[0], fecha)
     print("parameters " + str(lesson[0]))
-    query = "SELECT idUsuario, hora FROM fdi_ucm.asistencia WHERE aula = %s AND fecha = %s"
+    query = "SELECT idprofesor, hora FROM fdi_ucm.asistencia_profesores WHERE aula = %s AND fecha = %s"
     mycursor.execute(query, parameters)
     myresult = mycursor.fetchall()
     print(myresult)
@@ -168,8 +168,9 @@ def profesorNoAsiste(incidencia, lesson, fecha):
         print("Horasustituto = ")
         print(horaSustituto)
         if lesson[1] ==  horaSustituto:
-            parameters = (myresult[0][0],"0")
-            query = "SELECT nombre FROM fdi_ucm.usuarios WHERE idUsuario = %s AND cargo = %s"
+            parameters = []
+            parameters.append(myresult[0][0])
+            query = "SELECT nombre FROM fdi_ucm.profesores WHERE idProfesor = %s"
             mycursor.execute(query, parameters)
             myresult = mycursor.fetchall()
             incidencia["sustituto"] = myresult[0][0]

@@ -165,7 +165,7 @@ app.post("/GestionAula", (req, res) => {
 									var timestampTime = date.getTime();
 									var time = String(new Date(timestampTime).toTimeString());				
 									var sqlParamsInsert = [timestampTime/1000, aula, idUsuario, date, time.substring(0,8)];//tambien idasignatura e idgrupo
-									var sql = "INSERT INTO fdi_ucm.asistencia VALUES(?,?,?,?,?)"; 
+									var sql = "INSERT INTO fdi_ucm.asistencia_alumnos VALUES(?,?,?,?,?)"; 
 									con.query(sql, sqlParamsInsert, function (err, result) {
 										if (err) throw err;
 										console.log(result);
@@ -202,7 +202,7 @@ app.post("/GestionAula", (req, res) => {
 									var timestampTime = date.getTime();
 									var time = String(new Date(timestampTime).toTimeString());				
 									var sqlParamsInsert = [timestampTime/1000, aula, idUsuario, date, time.substring(0,8)];//tambien idasignatura e idgrupo
-									var sql = "INSERT INTO fdi_ucm.asistencia VALUES(?,?,?,?,?)"; 
+									var sql = "INSERT INTO fdi_ucm.asistencia_alumnos VALUES(?,?,?,?,?)"; 
 									con.query(sql, sqlParamsInsert, function (err, result) {
 									if (err) throw err;
 									console.log(result);
@@ -225,7 +225,7 @@ app.post("/GestionAula", (req, res) => {
 								var timestampTime = date.getTime();
 								var time = String(new Date(timestampTime).toTimeString());				
 								var sqlParamsInsert = [timestampTime/1000, aula, idUsuario, date, time.substring(0,8)];//tambien idasignatura e idgrupo
-								var sql = "INSERT INTO fdi_ucm.asistencia VALUES(?,?,?,?,?)"; 
+								var sql = "INSERT INTO fdi_ucm.asistencia_alumnos VALUES(?,?,?,?,?)"; 
 								con.query(sql, sqlParamsInsert, function (err, result) {
 									if (err) throw err;
 									console.log(result);
@@ -297,7 +297,7 @@ app.post("/GestionAula", (req, res) => {
 								var time = String(new Date(timestampTime).toTimeString());
 								//Insercion de la asistencia							
 								var sqlParamsInsert = [timestampTime/1000, aula, idUsuario, date, time.substring(0,8)];//tambien idasignatura e idgrupo
-								var sql = "INSERT INTO fdi_ucm.asistencia VALUES(?,?,?,?,?)"; 
+								var sql = "INSERT INTO fdi_ucm.asistencia_profesores VALUES(?,?,?,?,?)"; 
 								con.query(sql, sqlParamsInsert, function (err, result) {
 									if (err) throw err;
 									console.log(result);
@@ -340,6 +340,20 @@ app.post("/GestionAula", (req, res) => {
 				
 				console.log("No hay ningun horario disponible para esos parametros");
 				res.status(491).send("491");
+				var timestamp = date.getTime();
+				var time = String(new Date(timestamp).toTimeString());	
+				var sqlParamsInsert = [timestamp/1000, idUsuario, date,time.substring(0,8),"4", aula ];
+				var sql = "INSERT INTO fdi_ucm.incidencias VALUES(?,?,?,?,?,?)"; 
+				con.query(sql, sqlParamsInsert, function (err, result) {
+					if (err) throw err;
+					console.log(result);
+					if(result!= null){
+						console.log("Insercion de la incidencia correcta");
+					}
+					else{
+						console.log("Insercion de la incidencia incorrecta");
+					}
+				});
 				res.end();
 			}
 		});
